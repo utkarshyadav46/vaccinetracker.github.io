@@ -1,0 +1,209 @@
+ function addCellColor(tr, val,val_1) {
+      var td = document.createElement('td');
+  
+      if(val == "NA")
+  {
+    td.style.backgroundColor='#dddddd';
+    td.innerHTML = '<b> NA </b>';
+  
+  }
+       if(val>10)
+       {td.style.backgroundColor = '#93e371';
+       td.innerHTML = '<b> '+val+' <br> '+val_1+' </b>';
+      }
+      if(val>0 && val<=10)
+      {td.style.backgroundColor = '#f2ed46';
+      td.innerHTML = '<b> '+val+' <br> '+val_1+' </b>';
+    }
+      if(val == 0)
+      {td.style.backgroundColor='#f58a87';
+      td.innerHTML = '<b> Booked <br> '+val_1+' </b>';
+  }
+  
+  
+  
+  tr.appendChild(td)
+    }
+    function addCell(tr, val) {
+      var td = document.createElement('td');
+      td.innerHTML = '<b>'+val+'<b>';
+      tr.appendChild(td)
+    }
+    function addRow(tbl, val_1, val_2, val_3,val_4,val_5,val_6,val_7,val_8) {
+      var tr = document.createElement('tr');
+  
+      addCell(tr, val_1);
+      addCell(tr, val_3);
+      addCellColor(tr, val_4,val_2);
+      addCellColor(tr, val_5,val_2);
+      addCellColor(tr, val_6,val_2);
+      addCellColor(tr, val_7,val_2);
+      addCellColor(tr, val_8,val_2);
+  
+  
+      tbl.appendChild(tr)
+    }
+  function getDistanceBetween(val1,val2){
+  const data = null;
+  const xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
+  
+  xhr.addEventListener("readystatechange", function () {
+      if (this.readyState === this.DONE) {
+          console.log(this.responseText);
+      }
+  });
+  
+  xhr.open("GET", "https://distance-calculator.p.rapidapi.com/v1/one_to_one?start_point=(42.335321%2C-71.023516)&end_point=(47.373535%2C8.541109)&unit=kilometers");
+  xhr.setRequestHeader("content-type", "application/json");
+  xhr.setRequestHeader("x-rapidapi-key", "undefined");
+  xhr.setRequestHeader("x-rapidapi-host", "distance-calculator.p.rapidapi.com");
+  
+  xhr.send(data);
+  
+    }
+    
+    function showVaccine(){
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("ageGroup").value;
+    table = document.getElementById("vaccine_slot");
+    tr = table.getElementsByTagName("tr");
+    console.log(tr[1]);
+    for (i = 0; i < tr.length; i++) {
+     
+      td = tr[i].getElementsByTagName("td")[2];
+      if (td) {
+        console.log(td);
+        txtValue = td.textContent || td.innerText;
+        if (txtValue == input) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+      }
+    }
+   function dateFormat(value){
+  
+    var dd = value.getDate();
+          var mm = value.getMonth() + 1;
+          var yyyy = value.getFullYear();
+          var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+          return dd + " "+ months[mm-1]+" "+yyyy;
+   }
+    function abc()
+    { document.getElementById("vaccine_slot").style.height="500px";
+      document.getElementById("vaccine_slot").style.overflow="scroll";
+      document.getElementById("vaccine_slot").innerHTML="";
+         document.getElementById("vaccine_slot").innerHTML += '<input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search for CHC names/pincode/vaccine name.." title="Type in a name">';
+         document.getElementById("vaccine_slot").innerHTML += "<label style='float: right'></label><select id='ageGroup' onchange='showVaccine()' style='float: right'><option value='18' disabled selected>Select Age Group</option><option value='18'>18 - 45 years </option><option value='45'>45 years or above</option></select>";
+  
+         var district = document.forms["vaccineForm"]["citySelect"].value;
+          var today = new Date();
+          var dd = today.getDate();
+          var mm = today.getMonth() + 1;
+          var yyyy = today.getFullYear();
+          if (dd < 10) {
+              dd = '0' + dd;
+          }
+          if (mm < 10) {
+              mm = '0' + mm;
+          }
+          var today = dd + '-' + mm + '-' + yyyy;
+          
+          console.log(today);
+          // alert("Hello Guys, it will fetch states for vaccination .");
+          var url="https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id="+district+"&date="+today+"";
+          console.log(url);
+          let request = new XMLHttpRequest();
+          request.open("GET",url);
+          request.send();
+          request.onload = () => 
+          {      
+            var table = document.getElementById("vaccine_slot");
+            table.innerHTML+="";
+              if(request.status==200)
+              {
+                var a="NA";
+                var b="NA";
+                var c="NA";
+                var d="NA";
+                var e="NA";
+                      // console.log(request.response);
+                      var vaccinedata=JSON.parse(request.response);
+                      console.log(vaccinedata.centers);
+                      console.log(vaccinedata.centers[1].sessions['0'].vaccine);
+                      table.innerHTML +="<table id='tbl' style='text-align:center;'><tr><th> Center Name  </th><th>Age Group</th><th>"+dateFormat(new Date)+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+1))+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+2))+"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+3)) +"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+4))+"</th></tr>";
+                        console.log(vaccinedata.centers[1].sessions);
+                      tbl1 = document.getElementById('tbl');
+                      for (var i = 0; i <vaccinedata.centers.length; i++) 
+                       { if(vaccinedata.centers[i].sessions.length == 1)
+                         addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,b,c,d,e);
+                         if(vaccinedata.centers[i].sessions.length == 2)
+                         addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,vaccinedata.centers[i].sessions['1'].available_capacity,c,d,e);
+                         if(vaccinedata.centers[i].sessions.length == 3)
+                         addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,vaccinedata.centers[i].sessions['1'].available_capacity,vaccinedata.centers[i].sessions['2'].available_capacity,d,e);
+                         if(vaccinedata.centers[i].sessions.length == 4)
+                         addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,vaccinedata.centers[i].sessions['1'].available_capacity,vaccinedata.centers[i].sessions['2'].available_capacity,vaccinedata.centers[i].sessions['3'].available_capacity,e);
+                         if(vaccinedata.centers[i].sessions.length == 5)
+                         addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,vaccinedata.centers[i].sessions['1'].available_capacity,vaccinedata.centers[i].sessions['2'].available_capacity,vaccinedata.centers[i].sessions['3'].available_capacity,vaccinedata.centers[i].sessions['4'].available_capacity);
+                      } table.innerHTML+="</tbody>></table>";
+              }
+              else
+              {
+                  console.log(`error ${request.status} ${request.statusText}`);
+                  document.getElementById("vaccine_slot").innerHTML = "<h2> No slot available now .Please try again later </h2>";
+              }
+              var footer = document.getElementById("vaccinated");
+            footer.innerHTML +='<br><a class="btn btn-default read-more" style="background:#3399ff;color:white" href="#form">Return to home</a>';
+  
+          }
+    }
+    function showcities(){
+      document.getElementById('citySelect').innerText = "";
+      const cityNameSet = new Set();
+      const cityidSet = new Set();
+      var stateValue=document.getElementById('mySelect').value;
+        let found;
+      for(i=0;i<756;i++)
+      {
+      if(csvdata[i].state_id == stateValue)
+      {
+       // console.log(csvdata[i]['district name']);
+        cityNameSet.add(csvdata[i]['district name']);
+        cityidSet.add(csvdata[i]['district id']);
+       } }
+      var citiesName=Array.from(cityNameSet);
+      var citiesid=Array.from(cityidSet);
+  
+      const selectBox= document.querySelector('#citySelect');
+  
+        for(i=0;i<citiesName.length;i++)
+       {
+         const newOption = document.createElement('option');
+         const optionText = document.createTextNode(citiesName[i]);
+         newOption.appendChild(optionText);
+         newOption.setAttribute('value',citiesid[i]);
+         selectBox.appendChild(newOption);
+      } 
+    }
+    function searchFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("vaccine_slot");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+ 
+  
