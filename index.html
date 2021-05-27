@@ -93,7 +93,8 @@ input[type=submit]:hover {
   var csvdata;
   var a;
   const stateSet = new Set()
-  Papa.parse('https://raw.githubusercontent.com/bhattbhavesh91/cowin-vaccination-slot-availability/main/district_mapping.csv', {
+  
+  Papa.parse('data.csv', {
     header: true,
     download: true,
     dynamicTyping: true,
