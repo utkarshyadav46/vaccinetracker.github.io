@@ -1,4 +1,7 @@
- function addCellColor(tr, val,val_1) {
+
+
+
+function addCellColor(tr, val,val_1) {
       var td = document.createElement('td');
   
       if(val == "NA")
@@ -97,7 +100,8 @@
       document.getElementById("vaccine_slot").innerHTML="";
          document.getElementById("vaccine_slot").innerHTML += '<input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search for CHC names/pincode/vaccine name.." title="Type in a name">';
          document.getElementById("vaccine_slot").innerHTML += "<label style='float: right'></label><select id='ageGroup' onchange='showVaccine()' style='float: right'><option value='18' disabled selected>Select Age Group</option><option value='18'>18 - 45 years </option><option value='45'>45 years or above</option></select>";
-  
+         document.getElementById("vaccine_slot").innerHTML += "<button onclick='getLocation()''>Show Near Me</button>";
+
          var district = document.forms["vaccineForm"]["citySelect"].value;
           var today = new Date();
           var dd = today.getDate();
@@ -205,5 +209,55 @@
       }       
     }
   }
- 
+
+
+
+
+
+
+
+
+
+
+  //To show location coordinate on console
+  // var x = document.getElementById("demo");
+  function initMap(){
+    console.log('HI');
+  }
+
+  function getLocation() {
+    document.getElementById("vaccine_slot").innerHTML="";
+        var x= document.getElementById('vaccine_slot');
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+      x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
   
+  function showPosition(position1) {
+        // geocoder.geocode({
+    //     "address": 'CVC 1 Armapur Hospital CV , 208002'
+    // }, function(results) {
+    //     console.log(results[0].geometry.location); //LatLng
+    // });
+    var locationCoordinate = "Latitude: " + position1.coords.latitude + 
+    " \nLongitude: " + position1.coords.longitude;
+    console.log(locationCoordinate);
+
+    const myLatLng = { lat: position1.coords.latitude, lng: position1.coords.longitude };
+  const map = new google.maps.Map(document.getElementById("vaccine_slot"), {
+    zoom: 4,
+    center: myLatLng,
+  });
+  new google.maps.Marker({
+    position: myLatLng,
+    map,
+    title: "Hello World!",
+  });
+  }
+               
+
+  // Getting coordinate from given address
+
+ 
