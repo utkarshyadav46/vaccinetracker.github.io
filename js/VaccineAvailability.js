@@ -137,7 +137,7 @@ function addCellColor(tr, val,val_1) {
                        vaccinedata=JSON.parse(request.response);
                       console.log(vaccinedata.centers);
                       console.log(vaccinedata.centers[1].sessions['0'].vaccine);
-                      table.innerHTML +="<table id='tbl' style='text-align:center;'><tr><th> Center Name  </th><th>Age Group</th><th>"+dateFormat(new Date)+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+1))+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+2))+"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+3)) +"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+4))+"</th></tr>";
+                      table.innerHTML +="<table id='tbl'class='table-responsive' style='text-align:center;'><tr><th> Center Name  </th><th>Age Group</th><th>"+dateFormat(new Date)+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+1))+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+2))+"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+3)) +"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+4))+"</th></tr>";
                         console.log(vaccinedata.centers[1].sessions);
                       tbl1 = document.getElementById('tbl');
                       for (var i = 0; i <vaccinedata.centers.length; i++) 

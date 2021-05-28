@@ -29,7 +29,6 @@
     }
 
     input[type=text], select {
-        width: 20%;
         padding: 12px 20px;
         margin: 8px 0;
         display: inline-block;
@@ -62,17 +61,18 @@
         padding: 14px 20px 12px 45px;
         border: none;
         border-bottom: 1px solid #ddd;
+         box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
       }
       button {
-        width: 10%;
         background-color: #4CAF50;
         color: white;
         padding: 6px 20px;
         margin: 8px 0;
         border: none;
-        border-radius: 4px;
+        border-radius: 12px;
         cursor: pointer;
         height: 50px;
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
       }
       
       input[type=submit]:hover {
