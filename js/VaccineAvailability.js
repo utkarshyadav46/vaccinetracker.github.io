@@ -133,9 +133,10 @@ function addCellColor(tr, val,val_1) {
       document.getElementById("vaccine_slot").style.height="500px";
       document.getElementById("vaccine_slot").style.overflow="scroll";
       document.getElementById("vaccine_slot").innerHTML="";
+      document.getElementById("vaccinated").innerHTML="";
         //  document.getElementById("vaccine_slot").innerHTML += '<input type="text" id="myInput" class="input-res" onkeyup="searchFunction()" placeholder="Search for names/pincode" title="Type in a name"   style="float: right">';
-         document.getElementById("form").innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;<select id='ageGroup' onchange='filterAgeGroup()'><option value='60'  selected>Select Age Group</option><option value='18'>18 - 45 years </option><option value='45'>Above 45</option></select>";
-         document.getElementById("form").innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;<select id='vaccineName' onchange='filterVaccineNames()' ><option value=''  selected>Select Vaccine</option><option value='COVISHIELD'>COVISHIELD</option><option value='COVAXIN'>COVAXIN</option></select>";
+         document.getElementById("vaccinated").innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;<select id='ageGroup' onchange='filterAgeGroup()'><option value='60'  selected>Select Age Group</option><option value='18'>18 - 45 years </option><option value='45'>Above 45</option></select>";
+         document.getElementById("vaccinated").innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;<select id='vaccineName' onchange='filterVaccineNames()' ><option value=''  selected>Select Vaccine</option><option value='COVISHIELD'>COVISHIELD</option><option value='COVAXIN'>COVAXIN</option></select>";
 
          //  document.getElementById("vaccine_slot").innerHTML += "<button onclick='getLocation()''> Location</button>";
 
