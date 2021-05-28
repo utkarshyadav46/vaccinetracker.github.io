@@ -29,7 +29,7 @@ function addCellColor(tr, val,val_1) {
     }
     function addCell(tr, val) {
       var td = document.createElement('td');
-      td.innerHTML = '<b>'+val+'<b>';
+      td.innerHTML = '<b>'+val+'</b>';
       tr.appendChild(td)
     }
     function addRow(tbl, val_1, val_2, val_3,val_4,val_5,val_6,val_7,val_8) {
@@ -71,13 +71,15 @@ function addCellColor(tr, val,val_1) {
     input = document.getElementById("ageGroup").value;
     table = document.getElementById("vaccine_slot");
     tr = table.getElementsByTagName("tr");
-    console.log(tr[1]);
+   // console.log(tr[1]);
     for (i = 0; i < tr.length; i++) {
      
-      td = tr[i].getElementsByTagName("td")[2];
+      td = tr[i].getElementsByTagName("td")[1];
       if (td) {
-        console.log(td);
-        txtValue = td.textContent || td.innerText;
+
+        var td1=td.getElementsByTagName('b')[0];
+        // console.log(td.getElementsByTagName('b')[0]);
+        txtValue = td1.textContent || td1.innerText;
         if (txtValue == input) {
           tr[i].style.display = "";
         } else {
@@ -99,7 +101,7 @@ function addCellColor(tr, val,val_1) {
       document.getElementById("vaccine_slot").style.overflow="scroll";
       document.getElementById("vaccine_slot").innerHTML="";
          document.getElementById("vaccine_slot").innerHTML += '<input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search for CHC names/pincode/vaccine name.." title="Type in a name">';
-         document.getElementById("vaccine_slot").innerHTML += "<label style='float: right'></label><select id='ageGroup' onchange='showVaccine()' style='float: right'><option value='18' disabled selected>Select Age Group</option><option value='18'>18 - 45 years </option><option value='45'>45 years or above</option></select>";
+         document.getElementById("vaccine_slot").innerHTML += "<label style='float: right'></label><select id='ageGroup' onchange='showVaccine()' style='float: right'><option value='1' disabled selected>Select Age Group</option><option value='18'>18 - 45 years </option><option value='45'>45 years or above</option></select>";
         //  document.getElementById("vaccine_slot").innerHTML += "<button onclick='getLocation()''> Location</button>";
 
          var district = document.forms["vaccineForm"]["citySelect"].value;
@@ -115,7 +117,7 @@ function addCellColor(tr, val,val_1) {
           }
           var today = dd + '-' + mm + '-' + yyyy;
           
-          console.log(today);
+          // console.log(today);
           // alert("Hello Guys, it will fetch states for vaccination .");
           var url="https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id="+district+"&date="+today+"";
           console.log(url);
@@ -142,7 +144,7 @@ function addCellColor(tr, val,val_1) {
                       tbl1 = document.getElementById('tbl');
                       for (var i = 0; i <vaccinedata.centers.length; i++) 
                        {  var locateadd = vaccinedata.centers[i].name +" "+vaccinedata.centers[i].address +" "+vaccinedata.centers[i].district_name +","+vaccinedata.centers[i].pincode;
-                       console.log(locateadd);
+                      //  console.log(locateadd);
                          LocateAddress(locateadd);
                          if(vaccinedata.centers[i].sessions.length == 1)
                          addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,b,c,d,e);
