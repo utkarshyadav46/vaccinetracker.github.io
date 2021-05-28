@@ -66,7 +66,7 @@ function addCellColor(tr, val,val_1) {
   
     }
     
-    function showVaccine(){
+    function filterAgeGroup(){
     var input, filter, table, tr, td, i;
     input = document.getElementById("ageGroup").value;
     table = document.getElementById("vaccine_slot");
@@ -75,12 +75,16 @@ function addCellColor(tr, val,val_1) {
     for (i = 0; i < tr.length; i++) {
      
       td = tr[i].getElementsByTagName("td")[1];
+      
       if (td) {
 
         var td1=td.getElementsByTagName('b')[0];
         // console.log(td.getElementsByTagName('b')[0]);
         txtValue = td1.textContent || td1.innerText;
-        if (txtValue == input) {
+        if (input == '60') {
+          tr[i].style.display = "";
+        }
+       else if (txtValue == input) {
           tr[i].style.display = "";
         } else {
           tr[i].style.display = "none";
@@ -88,6 +92,32 @@ function addCellColor(tr, val,val_1) {
       }       
       }
     }
+
+    function filterVaccineNames(){
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("vaccineName").value;
+      table = document.getElementById("vaccine_slot");
+      tr = table.getElementsByTagName("tr");
+     // console.log(tr[1]);
+      for (i = 0; i < tr.length; i++) {
+       
+        td = tr[i].getElementsByTagName("td")[2];
+        
+        if (td) {
+  
+          var td1=td.getElementsByTagName('b')[0];
+          // console.log(td.getElementsByTagName('b')[0]);
+          txtValue = td1.textContent || td1.innerText;
+          if (txtValue.toUpperCase().indexOf(input) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+        }
+      }
+
+
    function dateFormat(value){
   
     var dd = value.getDate();
@@ -97,12 +127,17 @@ function addCellColor(tr, val,val_1) {
           return dd + " "+ months[mm-1]+" "+yyyy;
    }
     function abc()
-    { document.getElementById("vaccine_slot").style.height="500px";
+    { var table = document.getElementById("vaccine_slot");
+      var footer = document.getElementById("footer");
+    footer.innerHTML='';
+      document.getElementById("vaccine_slot").style.height="500px";
       document.getElementById("vaccine_slot").style.overflow="scroll";
       document.getElementById("vaccine_slot").innerHTML="";
          document.getElementById("vaccine_slot").innerHTML += '<input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search for CHC names/pincode/vaccine name.." title="Type in a name">';
-         document.getElementById("vaccine_slot").innerHTML += "<label style='float: right'></label><select id='ageGroup' onchange='showVaccine()' style='float: right'><option value='1' disabled selected>Select Age Group</option><option value='18'>18 - 45 years </option><option value='45'>45 years or above</option></select>";
-        //  document.getElementById("vaccine_slot").innerHTML += "<button onclick='getLocation()''> Location</button>";
+         document.getElementById("vaccine_slot").innerHTML += "<select id='ageGroup' onchange='filterAgeGroup()' style='float: right'><option value='60'  selected>Select Age Group</option><option value='18'>18 - 45 years </option><option value='45'>Above 45</option></select>";
+         document.getElementById("vaccine_slot").innerHTML += "<select id='vaccineName' onchange='filterVaccineNames()' style='float: right'><option value=''  selected>Select Vaccine</option><option value='COVISHIELD'>COVISHIELD</option><option value='COVAXIN'>COVAXIN</option></select>";
+
+         //  document.getElementById("vaccine_slot").innerHTML += "<button onclick='getLocation()''> Location</button>";
 
          var district = document.forms["vaccineForm"]["citySelect"].value;
           var today = new Date();
@@ -126,7 +161,7 @@ function addCellColor(tr, val,val_1) {
           request.send();
           request.onload = () => 
           {      
-            var table = document.getElementById("vaccine_slot");
+           
             table.innerHTML+="";
               if(request.status==200)
               {
@@ -163,7 +198,7 @@ function addCellColor(tr, val,val_1) {
                   console.log(`error ${request.status} ${request.statusText}`);
                   document.getElementById("vaccine_slot").innerHTML = "<h2> No slot available now .Please try again later </h2>";
               }
-              var footer = document.getElementById("vaccinated");
+              
             footer.innerHTML +='<br><a class="btn btn-default read-more" style="background:#3399ff;color:white" href="#form">Return to home</a>';
   
           }
@@ -256,21 +291,4 @@ function addCellColor(tr, val,val_1) {
     title: "Hello World!",
   });
   }
-      
-  // function LocateAddress(address) {
-  //   // var address = document.getElementById('address').value;
-  //   geocoder.geocode( { 'address': address}, function(results, status) {
-  //     if (status == 'OK') {
-  //       map.setCenter(results[0].geometry.location);
-  //       var marker = new google.maps.Marker({
-  //           map: map,
-  //           position: results[0].geometry.location
-  //       });
-  //     } else {
-  //     }
-  //   });
-  // }
-
-  // Getting coordinate from given address
-
- 
+  
