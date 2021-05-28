@@ -228,7 +228,7 @@ function addCellColor(tr, val,val_1) {
   // var x = document.getElementById("demo");
   function initMap(){
     console.log('HI');
-    geocoder = new google.maps.Geocoder();
+    // geocoder = new google.maps.Geocoder();
   }
 
   function getLocation() {
@@ -257,19 +257,19 @@ function addCellColor(tr, val,val_1) {
   });
   }
       
-  function LocateAddress(address) {
-    // var address = document.getElementById('address').value;
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == 'OK') {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-        });
-      } else {
-      }
-    });
-  }
+  // function LocateAddress(address) {
+  //   // var address = document.getElementById('address').value;
+  //   geocoder.geocode( { 'address': address}, function(results, status) {
+  //     if (status == 'OK') {
+  //       map.setCenter(results[0].geometry.location);
+  //       var marker = new google.maps.Marker({
+  //           map: map,
+  //           position: results[0].geometry.location
+  //       });
+  //     } else {
+  //     }
+  //   });
+  // }
 
   // Getting coordinate from given address
 
