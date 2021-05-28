@@ -133,9 +133,9 @@ function addCellColor(tr, val,val_1) {
       document.getElementById("vaccine_slot").style.height="500px";
       document.getElementById("vaccine_slot").style.overflow="scroll";
       document.getElementById("vaccine_slot").innerHTML="";
-         document.getElementById("vaccine_slot").innerHTML += '<input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search for CHC names/pincode/vaccine name.." title="Type in a name">';
-         document.getElementById("vaccine_slot").innerHTML += "<select id='ageGroup' onchange='filterAgeGroup()' style='float: right'><option value='60'  selected>Select Age Group</option><option value='18'>18 - 45 years </option><option value='45'>Above 45</option></select>";
-         document.getElementById("vaccine_slot").innerHTML += "<select id='vaccineName' onchange='filterVaccineNames()' style='float: right'><option value=''  selected>Select Vaccine</option><option value='COVISHIELD'>COVISHIELD</option><option value='COVAXIN'>COVAXIN</option></select>";
+        //  document.getElementById("vaccine_slot").innerHTML += '<input type="text" id="myInput" class="input-res" onkeyup="searchFunction()" placeholder="Search for names/pincode" title="Type in a name"   style="float: right">';
+         document.getElementById("form").innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;<select id='ageGroup' onchange='filterAgeGroup()'><option value='60'  selected>Select Age Group</option><option value='18'>18 - 45 years </option><option value='45'>Above 45</option></select>";
+         document.getElementById("form").innerHTML += "&nbsp;&nbsp;&nbsp;&nbsp;<select id='vaccineName' onchange='filterVaccineNames()' ><option value=''  selected>Select Vaccine</option><option value='COVISHIELD'>COVISHIELD</option><option value='COVAXIN'>COVAXIN</option></select>";
 
          //  document.getElementById("vaccine_slot").innerHTML += "<button onclick='getLocation()''> Location</button>";
 
@@ -174,7 +174,7 @@ function addCellColor(tr, val,val_1) {
                        vaccinedata=JSON.parse(request.response);
                       console.log(vaccinedata.centers);
                       console.log(vaccinedata.centers[1].sessions['0'].vaccine);
-                      table.innerHTML +="<table id='tbl'class='table table-borderless'><tr><th> Center Name  </th><th>Age Group</th><th>"+dateFormat(new Date)+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+1))+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+2))+"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+3)) +"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+4))+"</th></tr>";
+                      table.innerHTML +="<table id='tbl'class='table table-borderless'><tr><th> Center Name <br><input type='text' id='myInput'  onkeyup='searchFunction()' placeholder='Search for names/pincode' title='Type in a name'/> </th><th>Age Group</th><th>"+dateFormat(new Date)+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+1))+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+2))+"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+3)) +"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+4))+"</th></tr>";
                        // console.log(vaccinedata.centers[1].sessions);
                       tbl1 = document.getElementById('tbl');
                       for (var i = 0; i <vaccinedata.centers.length; i++) 
@@ -199,7 +199,7 @@ function addCellColor(tr, val,val_1) {
                   document.getElementById("vaccine_slot").innerHTML = "<h2> No slot available now .Please try again later </h2>";
               }
               
-            footer.innerHTML +='<br><a class="btn btn-default read-more" style="background:#3399ff;color:white" href="#form">Return to home</a>';
+            footer.innerHTML +='<br><a class="btn btn-default read-more" style="background:#3399ff;color:white" href="https://utkarshyadav46.github.io/vaccinetracker.github.io/?#vaccine_slot">Return to home</a>';
   
           }
     }
