@@ -1,5 +1,5 @@
-
-
+var geocoder;
+var vaccinedata;
 
 function addCellColor(tr, val,val_1) {
       var td = document.createElement('td');
@@ -100,7 +100,7 @@ function addCellColor(tr, val,val_1) {
       document.getElementById("vaccine_slot").innerHTML="";
          document.getElementById("vaccine_slot").innerHTML += '<input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search for CHC names/pincode/vaccine name.." title="Type in a name">';
          document.getElementById("vaccine_slot").innerHTML += "<label style='float: right'></label><select id='ageGroup' onchange='showVaccine()' style='float: right'><option value='18' disabled selected>Select Age Group</option><option value='18'>18 - 45 years </option><option value='45'>45 years or above</option></select>";
-         document.getElementById("vaccine_slot").innerHTML += "<button onclick='getLocation()''>Show Near Me</button>";
+         document.getElementById("vaccine_slot").innerHTML += "<button onclick='getLocation()''> Locate Me</button>";
 
          var district = document.forms["vaccineForm"]["citySelect"].value;
           var today = new Date();
@@ -134,14 +134,17 @@ function addCellColor(tr, val,val_1) {
                 var d="NA";
                 var e="NA";
                       // console.log(request.response);
-                      var vaccinedata=JSON.parse(request.response);
+                       vaccinedata=JSON.parse(request.response);
                       console.log(vaccinedata.centers);
                       console.log(vaccinedata.centers[1].sessions['0'].vaccine);
                       table.innerHTML +="<table id='tbl' style='text-align:center;'><tr><th> Center Name  </th><th>Age Group</th><th>"+dateFormat(new Date)+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+1))+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+2))+"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+3)) +"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+4))+"</th></tr>";
                         console.log(vaccinedata.centers[1].sessions);
                       tbl1 = document.getElementById('tbl');
                       for (var i = 0; i <vaccinedata.centers.length; i++) 
-                       { if(vaccinedata.centers[i].sessions.length == 1)
+                       {  var locateadd = vaccinedata.centers[i].name +" "+vaccinedata.centers[i].address +" "+vaccinedata.centers[i].district_name +","+vaccinedata.centers[i].pincode;
+                       console.log(locateadd);
+                         LocateAddress(locateadd);
+                         if(vaccinedata.centers[i].sessions.length == 1)
                          addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,b,c,d,e);
                          if(vaccinedata.centers[i].sessions.length == 2)
                          addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,vaccinedata.centers[i].sessions['1'].available_capacity,c,d,e);
@@ -188,7 +191,7 @@ function addCellColor(tr, val,val_1) {
          const optionText = document.createTextNode(citiesName[i]);
          newOption.appendChild(optionText);
          newOption.setAttribute('value',citiesid[i]);
-         selectBox.appendChild(newOption);
+        selectBox.appendChild(newOption);
       } 
     }
     function searchFunction() {
@@ -218,11 +221,12 @@ function addCellColor(tr, val,val_1) {
 
 
 
-
+  
   //To show location coordinate on console
   // var x = document.getElementById("demo");
   function initMap(){
     console.log('HI');
+    geocoder = new google.maps.Geocoder();
   }
 
   function getLocation() {
@@ -236,18 +240,12 @@ function addCellColor(tr, val,val_1) {
   }
   
   function showPosition(position1) {
-        // geocoder.geocode({
-    //     "address": 'CVC 1 Armapur Hospital CV , 208002'
-    // }, function(results) {
-    //     console.log(results[0].geometry.location); //LatLng
-    // });
     var locationCoordinate = "Latitude: " + position1.coords.latitude + 
     " \nLongitude: " + position1.coords.longitude;
     console.log(locationCoordinate);
-
     const myLatLng = { lat: position1.coords.latitude, lng: position1.coords.longitude };
-  const map = new google.maps.Map(document.getElementById("vaccine_slot"), {
-    zoom: 4,
+    const map = new google.maps.Map(document.getElementById("vaccine_slot"), {
+    zoom: 15,
     center: myLatLng,
   });
   new google.maps.Marker({
@@ -256,7 +254,20 @@ function addCellColor(tr, val,val_1) {
     title: "Hello World!",
   });
   }
-               
+      
+  function LocateAddress(address) {
+    // var address = document.getElementById('address').value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == 'OK') {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+      }
+    });
+  }
 
   // Getting coordinate from given address
 

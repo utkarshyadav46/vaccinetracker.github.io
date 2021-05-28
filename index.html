@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Vaccine Availability Tracker</title>
+    <title>Vaccine Tracker</title>
     
     <link rel="stylesheet" media="all" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&libraries=&v=weekly" async></script>   
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbtyb7TR2Wbhzgs4KAtqBP_hppkQgDESQ&callback=initMap&libraries=&v=weekly" async></script>   
     <script src="js/papaparse.min.js"></script>
     <script src="js/VaccineAvailability.js"></script>
     
@@ -16,14 +16,12 @@
   var csvdata;
   var a;
   const stateSet = new Set()
-  
   Papa.parse('https://raw.githubusercontent.com/utkarshyadav46/vaccinetracker.github.io/main/data.csv', {
     header: true,
     download: true,
     dynamicTyping: true,
     complete: function(results) {
       csvdata = results.data;
-      
       for(i=0;i<756;i++)
       stateSet.add(results.data[i].state_name);
        a=Array.from(stateSet);
@@ -36,8 +34,7 @@
        newOption.appendChild(optionText);
        newOption.setAttribute('value',i+1);
        selectBox.appendChild(newOption);
-    } 
-     
+    }    
     }
   });
   </script>
@@ -46,7 +43,7 @@
 <body style="background-color:rgb(127, 175, 214);">
 <center>
     <div id ="form"><br>
-      <h1><b>Vaccine Tracker</b></h1>
+      <h1><b>Vaccine Availability Tracker</b></h1>
       <br>
         <form name="vaccineForm" action="#vaccine_slot" method="GET">
              <select id="mySelect" onchange="showcities()", aria-placeholder="State">
@@ -61,18 +58,12 @@
         </form>    
     </div>
  </center>
-
  <div id="vaccine_slot">
 </div>
 <div id="vaccinated">
   <div class="col-sm-10" style="margin:20px 0px 20px 0px;">
   </div>
 </div>
-<!-- <script
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&libraries=&v=weekly"
-          async
-        ></script> -->
-
 </body>
 
 </html>
