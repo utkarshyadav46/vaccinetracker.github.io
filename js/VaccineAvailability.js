@@ -174,31 +174,35 @@ function addCellColor(tr, val,val_1) {
                       // console.log(request.response);
                        vaccinedata=JSON.parse(request.response);
                       console.log(vaccinedata.centers);
-                      console.log(vaccinedata.centers[1].sessions['0'].vaccine);
-                      table.innerHTML +="<table id='tbl'class='table table-borderless'><tr><th> Center Name <br><input type='text' id='myInput'  onkeyup='searchFunction()' placeholder='Search for names/pincode' title='Type in a name'/> </th><th>Age Group</th><th>"+dateFormat(new Date)+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+1))+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+2))+"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+3)) +"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+4))+"</th></tr>";
-                       // console.log(vaccinedata.centers[1].sessions);
-                      tbl1 = document.getElementById('tbl');
-                      for (var i = 0; i <vaccinedata.centers.length; i++) 
-                       {  var locateadd = vaccinedata.centers[i].name +" "+vaccinedata.centers[i].address +" "+vaccinedata.centers[i].district_name +","+vaccinedata.centers[i].pincode;
-                      //  console.log(locateadd);
-                       //  LocateAddress(locateadd);
-                         if(vaccinedata.centers[i].sessions.length == 1)
-                         addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,b,c,d,e);
-                         if(vaccinedata.centers[i].sessions.length == 2)
-                         addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,vaccinedata.centers[i].sessions['1'].available_capacity,c,d,e);
-                         if(vaccinedata.centers[i].sessions.length == 3)
-                         addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,vaccinedata.centers[i].sessions['1'].available_capacity,vaccinedata.centers[i].sessions['2'].available_capacity,d,e);
-                         if(vaccinedata.centers[i].sessions.length == 4)
-                         addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,vaccinedata.centers[i].sessions['1'].available_capacity,vaccinedata.centers[i].sessions['2'].available_capacity,vaccinedata.centers[i].sessions['3'].available_capacity,e);
-                         if(vaccinedata.centers[i].sessions.length == 5)
-                         addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,vaccinedata.centers[i].sessions['1'].available_capacity,vaccinedata.centers[i].sessions['2'].available_capacity,vaccinedata.centers[i].sessions['3'].available_capacity,vaccinedata.centers[i].sessions['4'].available_capacity);
-                      } table.innerHTML+="</tbody>></table>";
-              }
-              else
-              {
+                                             // console.log(vaccinedata.centers[1].sessions);
+                       if(vaccinedata.centers.length==0)
+                       document.getElementById("vaccine_slot").innerHTML = "<h2> No vaccination center available .Please try again. </h2>";
+                       else {
+                        console.log(vaccinedata.centers[1].sessions['0'].vaccine);
+                        table.innerHTML +="<table id='tbl'class='table table-borderless'><tr><th> Center Name <br><input type='text' id='myInput'  onkeyup='searchFunction()' placeholder='Search for names/pincode' title='Type in a name'/> </th><th>Age Group</th><th>"+dateFormat(new Date)+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+1))+"</th><th>"+dateFormat(new Date(yyyy, mm-1, dd+2))+"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+3)) +"</th><th>"+dateFormat( new Date(yyyy, mm-1, dd+4))+"</th></tr>";
+                                        tbl1 = document.getElementById('tbl');
+                                      for (var i = 0; i <vaccinedata.centers.length; i++) 
+                                    {  var locateadd = vaccinedata.centers[i].name +" "+vaccinedata.centers[i].address +" "+vaccinedata.centers[i].district_name +","+vaccinedata.centers[i].pincode;
+                                    //  console.log(locateadd);
+                                    //  LocateAddress(locateadd);
+                                      if(vaccinedata.centers[i].sessions.length == 1)
+                                      addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity,b,c,d,e);
+                                      if(vaccinedata.centers[i].sessions.length == 2)
+                                      addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,vaccinedata.centers[i].sessions['1'].available_capacity,c,d,e);
+                                      if(vaccinedata.centers[i].sessions.length == 3)
+                                      addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,vaccinedata.centers[i].sessions['1'].available_capacity,vaccinedata.centers[i].sessions['2'].available_capacity,d,e);
+                                      if(vaccinedata.centers[i].sessions.length == 4)
+                                      addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,vaccinedata.centers[i].sessions['1'].available_capacity,vaccinedata.centers[i].sessions['2'].available_capacity,vaccinedata.centers[i].sessions['3'].available_capacity,e);
+                                      if(vaccinedata.centers[i].sessions.length == 5)
+                                      addRow(tbl1,vaccinedata.centers[i].name +" , "+vaccinedata.centers[i].pincode , vaccinedata.centers[i].sessions['0'].vaccine, vaccinedata.centers[i].sessions['0'].min_age_limit, vaccinedata.centers[i].sessions['0'].available_capacity ,vaccinedata.centers[i].sessions['1'].available_capacity,vaccinedata.centers[i].sessions['2'].available_capacity,vaccinedata.centers[i].sessions['3'].available_capacity,vaccinedata.centers[i].sessions['4'].available_capacity);
+                                    } table.innerHTML+="</tbody>></table>";
+                            }
+            }
+            else
+            {
                   console.log(`error ${request.status} ${request.statusText}`);
                   document.getElementById("vaccine_slot").innerHTML = "<h2> No slot available now .Please try again later </h2>";
-              }
+            }
               
             footer.innerHTML +='<br><a class="btn btn-default read-more" style="background:#3399ff;color:white" href="https://utkarshyadav46.github.io/vaccinetracker.github.io/?#vaccine_slot">Return to home</a>';
   
